@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/home")
+@RequestMapping("/items")
 public class ItemController {
 
     private ItemService itemService;
@@ -23,43 +23,30 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @GetMapping("/item/{itemId}")
+    @GetMapping("/{itemId}")
     public Item getItem(@PathVariable int itemId) {
 
-        Item item = itemService.findById(itemId);
-
-        if (item == null) {
-            throw new RuntimeException("Item id not found - " + itemId);
-        }
-        return item;
+        return itemService.findById(itemId);
     }
 
-    @PostMapping("/item")
+    @PostMapping
     public Item addItem(@RequestBody Item item) {
 
-        item.setId(0);
-
         itemService.save(item);
 
         return item;
     }
 
-    @PutMapping("/item")
-    public Item updateItem(@RequestBody Item item) {
+    @PutMapping("/{itemId}")
+    public Item updateItem(@PathVariable String itemId, @RequestBody Item item) {
 
-        itemService.save(item);
+        itemService.update(item);
 
         return item;
     }
 
-    @DeleteMapping("/item/{itemId}")
+    @DeleteMapping("/{itemId}")
     public String deleteItem(@PathVariable int itemId) {
-
-        Item tempItem = itemService.findById(itemId);
-
-        if (tempItem == null) {
-            throw new RuntimeException("Item id not found - " + itemId);
-        }
 
         itemService.deleteById(itemId);
 

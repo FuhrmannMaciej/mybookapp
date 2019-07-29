@@ -1,15 +1,14 @@
 package com.fuhrmannmaciej.mybookapp.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
+import java.time.LocalDate;
 
-@Entity
-@Table(name = "item")
-public class Item {
+@MappedSuperclass
+public abstract class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +18,8 @@ public class Item {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "author")
-    private String author;
-
     @Column(name = "year_of_release")
-    private int yearOfRelease;
+    private LocalDate yearOfRelease;
 
     @Column(name = "rating")
     private int rating;
@@ -32,9 +28,8 @@ public class Item {
 
     }
 
-    public Item(String title, String author, int yearOfRelease, int rating) {
+    public Item(String title, LocalDate yearOfRelease, int rating) {
         this.title = title;
-        this.author = author;
         this.yearOfRelease = yearOfRelease;
         this.rating = rating;
     }
@@ -55,19 +50,11 @@ public class Item {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public int getYearOfRelease() {
+    public LocalDate getYearOfRelease() {
         return yearOfRelease;
     }
 
-    public void setYearOfRelease(int yearOfRelease) {
+    public void setYearOfRelease(LocalDate yearOfRelease) {
         this.yearOfRelease = yearOfRelease;
     }
 
