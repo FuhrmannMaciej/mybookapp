@@ -12,26 +12,30 @@ public abstract class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "item_id")
     private int id;
 
-    @Column(name = "title")
+    @Column(name = "item_title")
     private String title;
 
-    @Column(name = "year_of_release")
+    @Column(name = "item_year_of_release")
     private LocalDate yearOfRelease;
 
-    @Column(name = "rating")
+    @Column(name = "item_rating")
     private int rating;
+
+    @Column(name = "item_genre")
+    private String genre;
 
     public Item() {
 
     }
 
-    public Item(String title, LocalDate yearOfRelease, int rating) {
+    public Item(String title, LocalDate yearOfRelease, int rating, String genre) {
         this.title = title;
         this.yearOfRelease = yearOfRelease;
         this.rating = rating;
+        this.genre = genre;
     }
 
     public int getId() {
@@ -64,5 +68,13 @@ public abstract class Item {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }

@@ -35,8 +35,8 @@ public class ItemService {
         //logic to add
         Item dbItem = findById(item.getId());
 
-
-        dbItem.setRating(item.getRating());
+        dbItem.setTitle(item.getTitle());
+        dbItem.setGenre(item.getGenre());
 
         save(dbItem);
 
