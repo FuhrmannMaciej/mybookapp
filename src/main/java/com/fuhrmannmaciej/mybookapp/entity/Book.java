@@ -1,11 +1,25 @@
 package com.fuhrmannmaciej.mybookapp.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Book extends Item {
+@Entity
+public class Book extends Item implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "book_id")
+    private int bookId;
+
+    @Column(name = "book_author")
     private String author;
 
+    @Column(name = "book_number_of_pages")
     private int numberOfPages;
 
     public Book(String title, LocalDate yearOfRelease, int rating, String genre, String author, int numberOfPages) {
