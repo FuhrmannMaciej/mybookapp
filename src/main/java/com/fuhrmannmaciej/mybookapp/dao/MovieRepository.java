@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Qualifier("movies")
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
+
 }
