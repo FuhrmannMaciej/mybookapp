@@ -2,19 +2,12 @@ package com.fuhrmannmaciej.mybookapp.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.time.LocalDate;
 
-@Entity
+@Entity(name = "Book")
+@Table(name = "book")
 public class Book extends Item implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "book_id")
-    private int bookId;
 
     @Column(name = "book_author")
     private String author;
@@ -22,10 +15,14 @@ public class Book extends Item implements Serializable {
     @Column(name = "book_number_of_pages")
     private int numberOfPages;
 
-    public Book(String title, LocalDate yearOfRelease, int rating, String genre, String author, int numberOfPages) {
+    public Book(String title, int yearOfRelease, int rating, String genre, String author, int numberOfPages) {
         super(title, yearOfRelease, rating, genre);
         this.author = author;
         this.numberOfPages = numberOfPages;
+    }
+
+    public Book() {
+
     }
 
     public String getAuthor() {

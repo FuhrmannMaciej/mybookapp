@@ -3,6 +3,7 @@ package com.fuhrmannmaciej.mybookapp.service;
 import com.fuhrmannmaciej.mybookapp.dao.BookRepository;
 import com.fuhrmannmaciej.mybookapp.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +13,7 @@ public class BookService {
     private BookRepository bookRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository) {
+    public BookService(@Qualifier("books") BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
@@ -35,8 +36,12 @@ public class BookService {
         //logic to add
         Book dbBook = findById(book.getId());
 
+        dbBook.setAuthor(book.getAuthor());
         dbBook.setTitle(book.getTitle());
         dbBook.setGenre(book.getGenre());
+        dbBook.setNumberOfPages(book.getNumberOfPages());
+        dbBook.setYearOfRelease(book.getYearOfRelease());
+        dbBook.setRating(book.getRating());
 
         save(dbBook);
 

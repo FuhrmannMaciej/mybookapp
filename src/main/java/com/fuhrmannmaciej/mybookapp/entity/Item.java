@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.time.LocalDate;
 
 @MappedSuperclass
 public abstract class Item {
@@ -19,7 +18,7 @@ public abstract class Item {
     private String title;
 
     @Column(name = "item_year_of_release")
-    private LocalDate yearOfRelease;
+    private int yearOfRelease;
 
     @Column(name = "item_rating")
     private int rating;
@@ -31,7 +30,7 @@ public abstract class Item {
 
     }
 
-    public Item(String title, LocalDate yearOfRelease, int rating, String genre) {
+    public Item(String title, int yearOfRelease, int rating, String genre) {
         this.title = title;
         this.yearOfRelease = yearOfRelease;
         this.rating = rating;
@@ -54,11 +53,11 @@ public abstract class Item {
         this.title = title;
     }
 
-    public LocalDate getYearOfRelease() {
+    public int getYearOfRelease() {
         return yearOfRelease;
     }
 
-    public void setYearOfRelease(LocalDate yearOfRelease) {
+    public void setYearOfRelease(int yearOfRelease) {
         this.yearOfRelease = yearOfRelease;
     }
 

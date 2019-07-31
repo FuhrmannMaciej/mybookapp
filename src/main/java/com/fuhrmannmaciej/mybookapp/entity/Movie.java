@@ -2,19 +2,12 @@ package com.fuhrmannmaciej.mybookapp.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.time.LocalDate;
 
-@Entity
+@Entity(name = "Movie")
+@Table(name = "movie")
 public class Movie extends Item implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "movie_id")
-    private int movieId;
 
     @Column(name = "movie_director")
     private String director;
@@ -22,10 +15,14 @@ public class Movie extends Item implements Serializable {
     @Column(name = "movie_length")
     private int length;
 
-    public Movie(String title, LocalDate yearOfRelease, int rating, String genre, String director, int length) {
+    public Movie(String title, int yearOfRelease, int rating, String genre, String director, int length) {
         super(title, yearOfRelease, rating, genre);
         this.director = director;
         this.length = length;
+    }
+
+    public Movie() {
+
     }
 
     public String getDirector() {
