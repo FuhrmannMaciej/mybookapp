@@ -33,7 +33,6 @@ public class BookService {
     @Transactional
     public void update(Book book) {
 
-        //logic to add
         Book dbBook = findById(book.getId());
 
         dbBook.setAuthor(book.getAuthor());
