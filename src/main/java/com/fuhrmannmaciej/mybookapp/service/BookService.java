@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class BookService {
 
@@ -16,6 +18,13 @@ public class BookService {
     public BookService(@Qualifier("books") BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
+
+    @Transactional
+    public List<Book> findAll() {
+
+        return bookRepository.findAll();
+    }
+
 
     @Transactional
     public Book findById(int id) {
@@ -37,8 +46,6 @@ public class BookService {
 
         dbBook.setAuthor(book.getAuthor());
         dbBook.setTitle(book.getTitle());
-        dbBook.setGenre(book.getGenre());
-        dbBook.setNumberOfPages(book.getNumberOfPages());
         dbBook.setYearOfRelease(book.getYearOfRelease());
         dbBook.setRating(book.getRating());
 

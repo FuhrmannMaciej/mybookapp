@@ -21,20 +21,17 @@ public abstract class Item {
     private int yearOfRelease;
 
     @Column(name = "item_rating")
-    private int rating;
+    private double rating;
 
-    @Column(name = "item_genre")
-    private String genre;
 
     public Item() {
 
     }
 
-    public Item(String title, int yearOfRelease, int rating, String genre) {
+    public Item(String title, int yearOfRelease, double rating) {
         this.title = title;
         this.yearOfRelease = yearOfRelease;
         this.rating = rating;
-        this.genre = genre;
     }
 
     public int getId() {
@@ -61,19 +58,11 @@ public abstract class Item {
         this.yearOfRelease = yearOfRelease;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 }

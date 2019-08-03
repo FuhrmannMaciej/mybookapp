@@ -34,11 +34,9 @@ public class MovieService {
     @Transactional
     public void update(Movie movie) {
 
-        //logic to add
         Movie dbMovie = findById(movie.getId());
 
         dbMovie.setTitle(movie.getTitle());
-        dbMovie.setGenre(movie.getGenre());
 
         save(dbMovie);
 

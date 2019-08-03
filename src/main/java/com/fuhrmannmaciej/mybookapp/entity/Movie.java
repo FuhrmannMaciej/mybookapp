@@ -15,14 +15,14 @@ public class Movie extends Item implements Serializable {
     @Column(name = "movie_length")
     private int length;
 
-    public Movie(String title, int yearOfRelease, int rating, String genre, String director, int length) {
-        super(title, yearOfRelease, rating, genre);
-        this.director = director;
-        this.length = length;
-    }
-
     public Movie() {
 
+    }
+
+    public Movie(String title, int yearOfRelease, int rating, String director, int length) {
+        super(title, yearOfRelease, rating);
+        this.director = director;
+        this.length = length;
     }
 
     public String getDirector() {
