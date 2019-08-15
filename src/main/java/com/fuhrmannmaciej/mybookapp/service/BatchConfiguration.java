@@ -1,24 +1,25 @@
 package com.fuhrmannmaciej.mybookapp.service;
 
-import com.fuhrmannmaciej.mybookapp.entity.Book;
+import com.fuhrmannmaciej.mybookapp.entity.Item;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.core.io.Resource;
 
 import javax.sql.DataSource;
 
@@ -33,55 +34,25 @@ public class BatchConfiguration {
     private StepBuilderFactory stepBuilderFactory;
 
     @Autowired
-    @Lazy
-    private DataSource dataSource;
+    public DataSource dataSource;
+
+    @Value("classPath:/book_noimg.csv")
+    private Resource inputResource;
 
     @Bean
-    public DataSource dataSource() {
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3307/books?useSSL=false&serverTimezone=UTC");
-        dataSource.setUsername("springstudent");
-        dataSource.setPassword("springstudent");
-
-        return dataSource;
+    public Job readCSVFileJob() {
+        return jobBuilderFactory
+                .get("readCSVFileJob")
+                .incrementer(new RunIdIncrementer())
+                .start(step())
+                .build();
     }
 
     @Bean
-    public FlatFileItemReader<Book> reader() {
-        FlatFileItemReader<Book> reader = new FlatFileItemReader<>();
-        reader.setResource(new ClassPathResource("book_noimg.csv"));
-        reader.setLineMapper(new DefaultLineMapper<>() {{
-            setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames(new String[]{"item_id,book_author,item_year_of_release,item_title,item_rating"});
-            }});
-            setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
-                setTargetType(Book.class);
-            }});
-
-        }});
-
-        return reader;
-    }
-
-    @Bean
-    public BookItemProcessor processor() {
-        return new BookItemProcessor();
-    }
-
-    @Bean
-    public JdbcBatchItemWriter<Book> writer() {
-        JdbcBatchItemWriter<Book> writer = new JdbcBatchItemWriter<>();
-        writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
-        writer.setSql("INSERT INTO book(item_id,book_author,item_year_of_release,item_title,item_rating) VALUES (:item_id,book_author,item_year_of_release,item_title,item_rating)");
-        writer.setDataSource(dataSource);
-
-        return writer;
-    }
-
-    @Bean
-    public Step step1() {
-        return stepBuilderFactory.get("step1").<Book, Book>chunk(3)
+    public Step step() {
+        return stepBuilderFactory
+                .get("step")
+                .<Item, Item>chunk(5)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
@@ -89,12 +60,38 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Job importBookJob() {
-        return jobBuilderFactory.get("importUserJob")
-                .incrementer(new RunIdIncrementer())
-                .flow(step1())
-                .end()
-                .build();
+    public ItemProcessor<Item, Item> processor() {
+        return new BookItemProcessor();
+    }
+
+    @Bean
+    public FlatFileItemReader<Item> reader() {
+        FlatFileItemReader<Item> itemReader = new FlatFileItemReader<>();
+        itemReader.setLineMapper(lineMapper());
+        itemReader.setLinesToSkip(1);
+        itemReader.setResource(inputResource);
+        return itemReader;
+    }
+
+    @Bean
+    public LineMapper<Item> lineMapper() {
+        DefaultLineMapper<Item> lineMapper = new DefaultLineMapper<>();
+        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
+        lineTokenizer.setNames("item_id", "book_author", "item_year_of_release", "item_title", "item_rating");
+        BeanWrapperFieldSetMapper<Item> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        fieldSetMapper.setTargetType(Item.class);
+        lineMapper.setLineTokenizer(lineTokenizer);
+        lineMapper.setFieldSetMapper(fieldSetMapper);
+        return lineMapper;
+    }
+
+    @Bean
+    public JdbcBatchItemWriter<Item> writer() {
+        JdbcBatchItemWriter<Item> itemWriter = new JdbcBatchItemWriter<>();
+        itemWriter.setDataSource(dataSource);
+        itemWriter.setSql("INSERT INTO book (item_id,book_author,item_year_of_release,item_title,item_rating) VALUES (:item_id, :book_author, :item_year_of_release, :item_title, :item_rating)");
+        itemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
+        return itemWriter;
     }
 
 }

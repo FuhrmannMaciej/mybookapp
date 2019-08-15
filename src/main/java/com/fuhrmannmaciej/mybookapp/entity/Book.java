@@ -16,9 +16,8 @@ public class Book extends Item implements Serializable {
 
     }
 
-    public Book(String title, int yearOfRelease, int rating, String author) {
-
-        super(title, yearOfRelease, rating);
+    public Book(int id, String title, int yearOfRelease, double rating, String author) {
+        super(id, title, yearOfRelease, rating);
         this.author = author;
     }
 

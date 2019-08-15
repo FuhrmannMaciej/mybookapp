@@ -1,12 +1,12 @@
 package com.fuhrmannmaciej.mybookapp.service;
 
-import com.fuhrmannmaciej.mybookapp.entity.Book;
+import com.fuhrmannmaciej.mybookapp.entity.Item;
 import org.springframework.batch.item.ItemProcessor;
 
-public class BookItemProcessor implements ItemProcessor<Book, Book> {
+public class BookItemProcessor implements ItemProcessor<Item, Item> {
 
     @Override
-    public Book process(Book book) throws Exception {
-        return book;
+    public Item process(Item item) {
+        return item;
     }
 }

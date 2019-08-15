@@ -28,7 +28,8 @@ public abstract class Item {
 
     }
 
-    public Item(String title, int yearOfRelease, double rating) {
+    public Item(int id, String title, int yearOfRelease, double rating) {
+        this.id = id;
         this.title = title;
         this.yearOfRelease = yearOfRelease;
         this.rating = rating;
