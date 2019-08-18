@@ -1,5 +1,7 @@
 package com.fuhrmannmaciej.mybookapp.entity;
 
+import com.opencsv.bean.CsvBindByName;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,35 +13,38 @@ public abstract class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @CsvBindByName
     @Column(name = "item_id")
-    private int id;
+    private Integer id;
 
+    @CsvBindByName
     @Column(name = "item_title")
     private String title;
 
+    @CsvBindByName
     @Column(name = "item_year_of_release")
-    private int yearOfRelease;
+    private Integer yearOfRelease;
 
+    @CsvBindByName
     @Column(name = "item_rating")
-    private double rating;
+    private Double rating;
 
 
     public Item() {
-
     }
 
-    public Item(int id, String title, int yearOfRelease, double rating) {
+    public Item(Integer id, String title, Integer yearOfRelease, Double rating) {
         this.id = id;
         this.title = title;
         this.yearOfRelease = yearOfRelease;
         this.rating = rating;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,19 +56,19 @@ public abstract class Item {
         this.title = title;
     }
 
-    public int getYearOfRelease() {
+    public Integer getYearOfRelease() {
         return yearOfRelease;
     }
 
-    public void setYearOfRelease(int yearOfRelease) {
+    public void setYearOfRelease(Integer yearOfRelease) {
         this.yearOfRelease = yearOfRelease;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 }

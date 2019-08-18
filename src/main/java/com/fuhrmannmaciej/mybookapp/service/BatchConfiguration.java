@@ -1,6 +1,6 @@
 package com.fuhrmannmaciej.mybookapp.service;
 
-import com.fuhrmannmaciej.mybookapp.entity.Item;
+import com.fuhrmannmaciej.mybookapp.entity.Book;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -52,7 +52,7 @@ public class BatchConfiguration {
     public Step step() {
         return stepBuilderFactory
                 .get("step")
-                .<Item, Item>chunk(5)
+                .<Book, Book>chunk(10)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
@@ -60,13 +60,13 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public ItemProcessor<Item, Item> processor() {
+    public ItemProcessor<Book, Book> processor() {
         return new BookItemProcessor();
     }
 
     @Bean
-    public FlatFileItemReader<Item> reader() {
-        FlatFileItemReader<Item> itemReader = new FlatFileItemReader<>();
+    public FlatFileItemReader<Book> reader() {
+        FlatFileItemReader<Book> itemReader = new FlatFileItemReader<>();
         itemReader.setLineMapper(lineMapper());
         itemReader.setLinesToSkip(1);
         itemReader.setResource(inputResource);
@@ -74,20 +74,20 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public LineMapper<Item> lineMapper() {
-        DefaultLineMapper<Item> lineMapper = new DefaultLineMapper<>();
+    public LineMapper<Book> lineMapper() {
+        DefaultLineMapper<Book> lineMapper = new DefaultLineMapper<>();
         DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
         lineTokenizer.setNames("item_id", "book_author", "item_year_of_release", "item_title", "item_rating");
-        BeanWrapperFieldSetMapper<Item> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
-        fieldSetMapper.setTargetType(Item.class);
+        BeanWrapperFieldSetMapper<Book> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        fieldSetMapper.setTargetType(Book.class);
         lineMapper.setLineTokenizer(lineTokenizer);
         lineMapper.setFieldSetMapper(fieldSetMapper);
         return lineMapper;
     }
 
     @Bean
-    public JdbcBatchItemWriter<Item> writer() {
-        JdbcBatchItemWriter<Item> itemWriter = new JdbcBatchItemWriter<>();
+    public JdbcBatchItemWriter<Book> writer() {
+        JdbcBatchItemWriter<Book> itemWriter = new JdbcBatchItemWriter<>();
         itemWriter.setDataSource(dataSource);
         itemWriter.setSql("INSERT INTO book (item_id,book_author,item_year_of_release,item_title,item_rating) VALUES (:item_id, :book_author, :item_year_of_release, :item_title, :item_rating)");
         itemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());

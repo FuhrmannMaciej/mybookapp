@@ -1,5 +1,7 @@
 package com.fuhrmannmaciej.mybookapp.entity;
 
+import com.opencsv.bean.CsvBindByName;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,6 +11,7 @@ import java.io.Serializable;
 @Table(name = "book")
 public class Book extends Item implements Serializable {
 
+    @CsvBindByName
     @Column(name = "book_author")
     private String author;
 
@@ -16,7 +19,7 @@ public class Book extends Item implements Serializable {
 
     }
 
-    public Book(int id, String title, int yearOfRelease, double rating, String author) {
+    public Book(Integer id, String title, Integer yearOfRelease, Double rating, String author) {
         super(id, title, yearOfRelease, rating);
         this.author = author;
     }
