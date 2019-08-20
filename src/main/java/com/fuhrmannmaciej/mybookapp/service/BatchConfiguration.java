@@ -12,9 +12,10 @@ import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourc
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
+import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -78,18 +79,33 @@ public class BatchConfiguration {
         DefaultLineMapper<Book> lineMapper = new DefaultLineMapper<>();
         DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
         lineTokenizer.setNames("item_id", "book_author", "item_year_of_release", "item_title", "item_rating");
-        BeanWrapperFieldSetMapper<Book> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
-        fieldSetMapper.setTargetType(Book.class);
+
         lineMapper.setLineTokenizer(lineTokenizer);
-        lineMapper.setFieldSetMapper(fieldSetMapper);
+        lineMapper.setFieldSetMapper(new BookMapper());
+
         return lineMapper;
     }
+
+    static class BookMapper implements FieldSetMapper<Book> {
+
+        @Override
+        public Book mapFieldSet(FieldSet fieldSet) {
+            Book book = new Book();
+            book.setId(fieldSet.readInt("item_id"));
+            book.setAuthor(fieldSet.readString("book_author"));
+            book.setYearOfRelease(fieldSet.readInt("item_year_of_release"));
+            book.setTitle(fieldSet.readString("item_title"));
+            book.setRating(fieldSet.readDouble("item_rating"));
+            return book;
+        }
+    }
+
 
     @Bean
     public JdbcBatchItemWriter<Book> writer() {
         JdbcBatchItemWriter<Book> itemWriter = new JdbcBatchItemWriter<>();
         itemWriter.setDataSource(dataSource);
-        itemWriter.setSql("INSERT INTO book (item_id,book_author,item_year_of_release,item_title,item_rating) VALUES (:item_id, :book_author, :item_year_of_release, :item_title, :item_rating)");
+        itemWriter.setSql("INSERT INTO book (item_id,book_author,item_year_of_release,item_title,item_rating) VALUES (:id, :author, :yearOfRelease, :title, :rating)");
         itemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
         return itemWriter;
     }

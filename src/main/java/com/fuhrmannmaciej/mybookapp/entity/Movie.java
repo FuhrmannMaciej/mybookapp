@@ -19,7 +19,7 @@ public class Movie extends Item implements Serializable {
 
     }
 
-    public Movie(int id, String title, int yearOfRelease, double rating, String director, int length) {
+    public Movie(Integer id, String title, Integer yearOfRelease, Double rating, String director, int length) {
         super(id, title, yearOfRelease, rating);
         this.director = director;
         this.length = length;

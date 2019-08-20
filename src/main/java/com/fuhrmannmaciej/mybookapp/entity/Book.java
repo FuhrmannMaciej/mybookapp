@@ -16,7 +16,6 @@ public class Book extends Item implements Serializable {
     private String author;
 
     public Book() {
-
     }
 
     public Book(Integer id, String title, Integer yearOfRelease, Double rating, String author) {
@@ -31,4 +30,6 @@ public class Book extends Item implements Serializable {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+
 }
