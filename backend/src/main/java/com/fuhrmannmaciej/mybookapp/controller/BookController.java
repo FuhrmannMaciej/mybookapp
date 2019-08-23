@@ -31,7 +31,7 @@ public class BookController {
         return bookService.findById(bookId);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public Book addBook(@RequestBody Book book) {
 
         bookService.save(book);

@@ -1,0 +1,21 @@
+<div *ngIf="book">
+  <div>
+    <label>Id: </label> {{book.id}}
+  </div>
+  <div>
+    <label>Title: </label> {{book.title}}
+  </div>
+  <div>
+    <label>Author: </label> {{book.author}}
+  </div>
+  <div>
+    <label>Year: </label> {{book.yearOfRelease}}
+  </div>
+  <div>
+    <label>Rating: </label> {{book.rating}}
+  </div>
+
+  <span class="button is-small btn-danger" (click)='bookService.deleteBook(book.id)'>Delete</span>
+
+  <hr/>
+</div>
