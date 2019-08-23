@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -39,7 +40,7 @@ public class BookController {
     }
 
     @PutMapping("/{bookId}")
-    public Book updateBook(@PathVariable String bookId, @RequestBody Book book) {
+    public Book updateBook(@PathVariable int bookId, @RequestBody Book book) {
 
         bookService.update(book);
 
