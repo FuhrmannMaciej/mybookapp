@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -31,7 +31,7 @@ public class BookController {
         return bookService.findById(bookId);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public Book addBook(@RequestBody Book book) {
 
         bookService.save(book);
