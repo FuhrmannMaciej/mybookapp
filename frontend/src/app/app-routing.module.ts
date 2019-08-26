@@ -3,12 +3,14 @@ import {AddBooksComponent} from './add-books/add-books.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {BooksListComponent} from './books-list/books-list.component';
+import {BooksComponent} from './books/books.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'books', pathMatch: 'full'},
-  {path: 'books', component: BooksListComponent},
-  {path: 'add', component: AddBooksComponent},
-  {path: 'details', component: BooksDetailsComponent}
+  {path: 'books', component: BooksComponent},
+  {path: 'books/list', component: BooksListComponent},
+  {path: 'books/add', component: AddBooksComponent},
+  {path: 'books/details', component: BooksDetailsComponent}
 ];
 
 @NgModule({

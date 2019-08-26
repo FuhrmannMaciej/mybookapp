@@ -8,6 +8,8 @@ import {Observable} from 'rxjs';
 export class BookService {
 
   private baseUrl = '/books';
+  private listUrl = '/list';
+  private addUrl = '/add';
 
   constructor(private http: HttpClient) {
   }
@@ -17,7 +19,7 @@ export class BookService {
   }
 
   addBook(book: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, book);
+    return this.http.post(`${this.baseUrl}${this.addUrl}`, book);
   }
 
   updateBook(id: number, value: any): Observable<Object> {
@@ -29,6 +31,6 @@ export class BookService {
   }
 
   getAllBooks(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+    return this.http.get(`${this.baseUrl}${this.listUrl}`);
   }
 }
