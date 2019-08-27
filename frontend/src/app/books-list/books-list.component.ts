@@ -1,7 +1,7 @@
-import {Observable} from "rxjs";
-import {BookService} from "./books-list.service";
-import {Book} from "../../model/book.model";
-import {Component, OnInit} from "@angular/core";
+import {Observable} from 'rxjs';
+import {Book} from '../../model/book.model';
+import {Component, OnInit} from '@angular/core';
+import {BooksListingService} from '../books-listing.service';
 
 @Component({
   selector: "app-books-list",
@@ -11,7 +11,7 @@ import {Component, OnInit} from "@angular/core";
 export class BooksListComponent implements OnInit {
   books: Observable<Book[]>;
 
-  constructor(private bookService: BookService) {
+  constructor(private bookService: BooksListingService) {
   }
 
   ngOnInit() {
