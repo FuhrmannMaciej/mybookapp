@@ -18,6 +18,12 @@ export class AddBooksComponent implements OnInit {
   ngOnInit() {
   }
 
+  newBook(): void {
+    this.submitted = false;
+    this.book = new Book();
+  }
+
+
   save() {
     this.bookService.addBook(this.book)
       .subscribe(data => console.log(data), error => console.log(error));

@@ -5,11 +5,10 @@ import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class BookService {
+export class BooksListingService {
 
   private baseUrl = '/books';
   private listUrl = '/list';
-  private addUrl = '/add';
 
   constructor(private http: HttpClient) {
   }
@@ -19,7 +18,7 @@ export class BookService {
   }
 
   addBook(book: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}${this.addUrl}`, book);
+    return this.http.post(`${this.baseUrl}`, book);
   }
 
   updateBook(id: number, value: any): Observable<Object> {
@@ -27,7 +26,7 @@ export class BookService {
   }
 
   deleteBook(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
+    return this.http.delete(`${this.listUrl}/${id}`, {responseType: 'text'});
   }
 
   getAllBooks(): Observable<any> {

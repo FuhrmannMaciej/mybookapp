@@ -8,9 +8,9 @@ import {BooksComponent} from './books/books.component';
 const routes: Routes = [
   {path: '', redirectTo: 'books', pathMatch: 'full'},
   {path: 'books', component: BooksComponent},
-  {path: 'books/list', component: BooksListComponent},
-  {path: 'books/add', component: AddBooksComponent},
-  {path: 'books/details', component: BooksDetailsComponent}
+  {path: 'list', component: BooksListComponent},
+  {path: 'add', component: AddBooksComponent},
+  {path: 'details', component: BooksDetailsComponent}
 ];
 
 @NgModule({

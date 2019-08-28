@@ -1,6 +1,6 @@
 {
   "/books": {
-    "target": "http://localhost:4200/books-portal",
+    "target": "http://localhost:8181",
     "secure": false
   }
 }
