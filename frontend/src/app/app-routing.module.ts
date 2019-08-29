@@ -1,4 +1,3 @@
-import {BooksDetailsComponent} from './books-details/books-details.component';
 import {AddBooksComponent} from './add-books/add-books.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
@@ -9,8 +8,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'books', pathMatch: 'full'},
   {path: 'books', component: BooksComponent},
   {path: 'list', component: BooksListComponent},
-  {path: 'add', component: AddBooksComponent},
-  {path: 'details', component: BooksDetailsComponent}
+  {path: 'add', component: AddBooksComponent}
 ];
 
 @NgModule({

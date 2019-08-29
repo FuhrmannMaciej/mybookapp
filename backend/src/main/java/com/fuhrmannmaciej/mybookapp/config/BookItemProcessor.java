@@ -1,4 +1,4 @@
-package com.fuhrmannmaciej.mybookapp.service;
+package com.fuhrmannmaciej.mybookapp.config;
 
 import com.fuhrmannmaciej.mybookapp.entity.Book;
 import org.springframework.batch.item.ItemProcessor;

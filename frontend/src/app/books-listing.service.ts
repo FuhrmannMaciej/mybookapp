@@ -26,7 +26,7 @@ export class BooksListingService {
   }
 
   deleteBook(id: number): Observable<any> {
-    return this.http.delete(`${this.listUrl}/${id}`, {responseType: 'text'});
+    return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
   }
 
   getAllBooks(): Observable<any> {
