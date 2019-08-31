@@ -1,4 +1,4 @@
-package com.fuhrmannmaciej.mybookapp.service;
+package com.fuhrmannmaciej.mybookapp.service.security;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
