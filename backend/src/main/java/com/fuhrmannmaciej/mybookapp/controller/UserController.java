@@ -4,7 +4,6 @@ import com.fuhrmannmaciej.mybookapp.entity.User;
 import com.fuhrmannmaciej.mybookapp.service.security.SecurityService;
 import com.fuhrmannmaciej.mybookapp.service.security.UserService;
 import com.fuhrmannmaciej.mybookapp.validator.UserValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,14 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private SecurityService securityService;
+    private final SecurityService securityService;
 
-    @Autowired
-    private UserValidator userValidator;
+    private final UserValidator userValidator;
+
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator) {
+        this.userService = userService;
+        this.securityService = securityService;
+        this.userValidator = userValidator;
+    }
 
     @GetMapping("/registration")
     public String registration(Model model) {
