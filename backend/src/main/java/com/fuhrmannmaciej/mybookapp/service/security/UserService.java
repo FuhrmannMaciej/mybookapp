@@ -1,10 +1,9 @@
 package com.fuhrmannmaciej.mybookapp.service.security;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.fuhrmannmaciej.mybookapp.entity.User;
 
-public class UserService extends UserDetailsService {
+public interface UserService {
+    void save(User user);
 
-    User findByEmail(String email);
-
-    User save(UserRegistrationDto registration);
+    User findByUsername(String username);
 }
