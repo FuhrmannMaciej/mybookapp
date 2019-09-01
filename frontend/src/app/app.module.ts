@@ -18,6 +18,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {RegistrationComponent} from './registration/registration.component';
+import {LoginComponent} from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import {MatSortModule} from '@angular/material/sort';
     AddBooksComponent,
     BooksListComponent,
     BooksComponent,
-    NavComponent
+    NavComponent,
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
