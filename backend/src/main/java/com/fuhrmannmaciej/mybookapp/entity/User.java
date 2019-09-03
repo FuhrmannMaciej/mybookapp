@@ -19,7 +19,7 @@ public class User {
 
     @Column(name = "user_name")
     @NotEmpty(message = "*Please enter your username")
-    private String name;
+    private String userName;
 
     @Column(name = "user_email")
     @Email(message = "*Please provide a valid Email")
@@ -35,12 +35,12 @@ public class User {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {

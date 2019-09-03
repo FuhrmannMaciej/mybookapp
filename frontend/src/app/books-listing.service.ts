@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class BooksListingService {
 
-  private baseUrl = '/books';
+  private baseUrl = '/home';
   private listUrl = '/list';
 
   constructor(private http: HttpClient) {

@@ -9,7 +9,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/home")
 public class BookController {
 
     private BookService bookService;
