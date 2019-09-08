@@ -16,9 +16,11 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, './coverage/mybookapp'),
-      reports: ['html', 'lcovonly', 'text-summary'],
+      dir: require('path').join(__dirname, 'coverage'), reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
+    },
+    angularCli: {
+      environment: 'dev'
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
@@ -26,7 +28,6 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
-    singleRun: false,
-    restartOnFileChange: true
+    singleRun: false
   });
 };

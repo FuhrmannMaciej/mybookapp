@@ -1,23 +1,25 @@
-import {AddBooksComponent} from './add-books/add-books.component';
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {BooksListComponent} from './books-list/books-list.component';
-import {BooksComponent} from './books/books.component';
-import {RegistrationComponent} from './registration/registration.component';
-import {LoginComponent} from './login/login.component';
+import {Routes} from '@angular/router';
 
-const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: BooksComponent},
-  {path: 'list', component: BooksListComponent},
-  {path: 'add', component: AddBooksComponent},
-  {path: 'registration', component: RegistrationComponent},
-  {path: 'login', component: LoginComponent}
+import {FullComponent} from './layouts/full/full.component';
+
+export const Approutes: Routes = [
+  {
+    path: '',
+    component: FullComponent,
+    children: [
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {
+        path: 'home',
+        loadChildren: () => import('./starter/starter.module').then(m => m.StarterModule)
+      },
+      {
+        path: 'books',
+        loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
+      }
+    ]
+  },
+  {
+    path: '**',
+    redirectTo: 'home'
+  }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, {enableTracing: true})],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {
-}

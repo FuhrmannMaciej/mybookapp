@@ -1,53 +1,56 @@
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {AddBooksComponent} from './add-books/add-books.component';
-import {BooksListComponent} from './books-list/books-list.component';
 import {HttpClientModule} from '@angular/common/http';
-import {BooksComponent} from './books/books.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NavComponent} from './nav/nav.component';
-import {LayoutModule} from '@angular/cdk/layout';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatIconModule} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSortModule} from '@angular/material/sort';
-import {RegistrationComponent} from './registration/registration.component';
-import {LoginComponent} from './login/login.component';
+import {RouterModule} from '@angular/router';
+
+import {FullComponent} from './layouts/full/full.component';
+
+import {NavigationComponent} from './shared/header-navigation/navigation.component';
+import {SidebarComponent} from './shared/sidebar/sidebar.component';
+import {BreadcrumbComponent} from './shared/breadcrumb/breadcrumb.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
+
+import {AppComponent} from './app.component';
+import {SpinnerComponent} from './shared/spinner.component';
+import {AddBooksComponent} from './component/books/add-books/add-books.component';
+import {Approutes} from './app-routing.module';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+  wheelSpeed: 2,
+  wheelPropagation: true
+};
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddBooksComponent,
-    BooksListComponent,
-    BooksComponent,
-    NavComponent,
-    RegistrationComponent,
-    LoginComponent
+    SpinnerComponent,
+    FullComponent,
+    NavigationComponent,
+    BreadcrumbComponent,
+    SidebarComponent,
+    AddBooksComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
-    AppRoutingModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule
+    NgbModule,
+    RouterModule.forRoot(Approutes),
+    PerfectScrollbarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
