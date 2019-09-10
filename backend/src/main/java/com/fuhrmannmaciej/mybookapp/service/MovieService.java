@@ -1,7 +1,7 @@
 package com.fuhrmannmaciej.mybookapp.service;
 
+import com.fuhrmannmaciej.mybookapp.dao.MovieRepository;
 import com.fuhrmannmaciej.mybookapp.entity.Movie;
-import com.fuhrmannmaciej.mybookapp.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
