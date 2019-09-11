@@ -25,7 +25,6 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-
     @Transactional
     public Book findById(int id) {
 

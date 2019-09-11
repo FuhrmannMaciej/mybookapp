@@ -31,4 +31,14 @@ export class BooksListComponent implements OnInit {
         },
         error => console.log(error));
   }
+
+  getBook(id: number) {
+    this.bookService.getBook(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error));
+  }
 }
