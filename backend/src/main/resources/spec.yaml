@@ -786,7 +786,7 @@ paths:
         - api-key: []
 definitions: {}
 securityDefinitions:
-  api-key:
+  api-key: "BfGf8fBDHb7XldyENlrAH4rumiKOo1P6"
     name: "api-key"
     type: "apiKey"
     in: "query"
