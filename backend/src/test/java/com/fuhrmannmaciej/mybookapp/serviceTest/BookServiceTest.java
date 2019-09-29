@@ -45,21 +45,23 @@ public class BookServiceTest {
     @Test
     public void testFindAllBooks() {
 
+        //given
         List<Book> books = new ArrayList<>();
+        //when
         when(bookRepositoryMock.findAll()).thenReturn(books);
-
         List<Book> returned = bookService.findAll();
-
+        //then
         assertEquals(books, returned);
     }
 
     @Test
     public void testFindById() {
 
+        //given
         given(bookRepositoryMock.findById(defaultBook.getId())).willReturn(of(defaultBook));
-
+        //when
         Book bookFound = bookService.findById(defaultBook.getId());
-
+        //then
         assertThat(bookFound).isEqualToComparingFieldByField(defaultBook);
 
     }

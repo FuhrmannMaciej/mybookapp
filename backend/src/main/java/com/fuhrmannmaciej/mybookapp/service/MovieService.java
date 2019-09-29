@@ -3,7 +3,6 @@ package com.fuhrmannmaciej.mybookapp.service;
 import com.fuhrmannmaciej.mybookapp.entity.Movie;
 import com.fuhrmannmaciej.mybookapp.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +13,7 @@ public class MovieService {
     private MovieRepository movieRepository;
 
     @Autowired
-    public MovieService(@Qualifier("movies") MovieRepository movieRepository) {
+    public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
