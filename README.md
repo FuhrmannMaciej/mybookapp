@@ -1,6 +1,6 @@
 # My Book List
 
-Simple book list CRUD app.
+CRUD app using MySQL database. It reads from a .csv file and writes data to database.
 
 ## Getting Started
 
